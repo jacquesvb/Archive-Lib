@@ -15,28 +15,9 @@ function App() {
               Archive-Lib
             </Typography>
           </div>
-          <div className="flex items-center space-x-4 w-72">
-            <Search />
-          </div>
         </Navbar>
-        <div className="h-[100vh] py-4">
-          {identifiers && identifiers.length > 0 ? (
-            <div className="grid grid-cols-4 gap-4">
-              {identifiers.map((identifier) => (
-                <div key={identifier.id} className="bg-gray-800 rounded-lg p-4">
-                  <div className="text-white text-lg font-bold">
-                    {identifier.title}
-                  </div>
-                  <div className="text-white text-sm">{identifier.author}</div>
-                  <div className="text-white text-sm">{identifier.isbn}</div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center text-2xl text-white">
-              No results found
-            </div>
-          )}
+        <div className="flex flex-col items-center min-h-screen bg-gray-100">
+          <Search />
         </div>
       </ArchiveContext.Provider>
     </div>
