@@ -19,6 +19,19 @@ function App() {
         <div className="flex flex-col items-center min-h-screen bg-gray-100">
           <Search />
         </div>
+        {identifiers.length > 0 && (
+          <div className="flex flex-col items-center min-h-screen bg-gray-100">
+            <div className="w-full max-w-md p-4 bg-white rounded shadow-md">
+              <ul>
+                {identifiers.map((identifier) => (
+                  <li key={identifier} className="mb-2">
+                    {identifier}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
       </ArchiveContext.Provider>
     </div>
   );

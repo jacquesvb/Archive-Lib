@@ -26,5 +26,5 @@ class IArchive:
     identifier_list = []
     for i in search_items(search_term):
       identifier_list.append(i['identifier'])
-      return identifier_list
+    return identifier_list
 

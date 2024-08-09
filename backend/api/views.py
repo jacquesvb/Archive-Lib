@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import UserSerializer, HelloSerializer, MediumSerializer
+from .serializers import UserSerializer, SearchSerializer, MediumSerializer, HelloSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from api.archive import IArchive
 from .models import Medium
 
 
@@ -12,6 +13,17 @@ class CreateUserView(generics.CreateAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
   permission_classes = [AllowAny]
+
+
+class SearchView(APIView):
+  permission_classes = [AllowAny]
+  def post(self, request):
+    serializer = SearchSerializer(data=request.data)
+    if serializer.is_valid():
+      name = serializer.validated_data.get("name")
+      result = IArchive.search_archive(name)
+      return Response({'result': result}, status=status.HTTP_200_OK)
+    return Response({'error': 'Name not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class HelloView(APIView):
@@ -22,7 +34,7 @@ class HelloView(APIView):
       name = serializer.validated_data.get("name")
       return Response({"message": f"Hello {name}"}, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+  
 
 class MediumListCreate(generics.ListCreateAPIView):
   serializer_class = MediumSerializer

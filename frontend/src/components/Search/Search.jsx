@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { Input, Button, Typography } from "@material-tailwind/react";
+import { Input, Button } from "@material-tailwind/react";
 import axios from "axios";
+import ArchiveContext from "../../context";
 
 const Search = () => {
   const [term, setTerm] = useState("");
-  const [response, setResponse] = useState("");
+  const [identifiers, setIdentifiers] = useState(ArchiveContext);
 
   const handleSearch = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/api/hello/", {
+      const res = await axios.post("http://localhost:8000/api/search/", {
         name: term,
       });
-      setResponse(res.data.message);
-      console.log("Response: ", res.data.message);
+      setIdentifiers(res.data.message);
+      console.log("Response: ", identifiers);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -31,13 +32,6 @@ const Search = () => {
         <Button onClick={handleSearch} color="blue">
           Search
         </Button>
-        {response && (
-          <div className="text-blue-gray-900">
-            <Typography className="pointer-events-none text-2xl text-white font-bold">
-              {response}
-            </Typography>
-          </div>
-        )}
       </div>
     </div>
   );

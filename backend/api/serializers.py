@@ -15,6 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
       return user
 
 
+class SearchSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    
+
 class HelloSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
 
