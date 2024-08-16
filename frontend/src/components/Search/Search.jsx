@@ -13,7 +13,6 @@ const Search = () => {
 
   const handleSearch = async () => {
     setLoading(true);
-    const payload = `{"name": "${query}"}`;
     try {
       const resultResponse = await axios.post(
         "http://localhost:8000/api/search/",
@@ -21,13 +20,6 @@ const Search = () => {
       );
       setResults(resultResponse.data.result);
       setLoading(false);
-      // setTimeout(async () => {
-      //   const resultResponse = await axios.get(
-      //     "http://localhsot:8000/api/search/"
-      //   );
-      //   setResults(resultResponse.data.result);
-      //   setLoading(false);
-      // }, 5000); // Wait for 5 seconds before getting the response
     } catch (error) {
       console.error("Error fetching data: ", error);
       setLoading(false);
